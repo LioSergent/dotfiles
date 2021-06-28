@@ -75,6 +75,12 @@ set shiftwidth=4
 set expandtab
 set softtabstop=4
 
+" colors to indicate lines that are too long
+set colorcolumn=80
+
+" to reformat at right length
+set textwidth=80
+
 " on rétabli le fonctionnement 'normal' de 'backspace'
 set backspace=indent,eol,start
 
