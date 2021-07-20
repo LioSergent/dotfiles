@@ -64,10 +64,21 @@ endif
 set encoding=utf8
 
 
-set termguicolors
+" I don't which one is actually correct
+" term=screen-256color is attempt to make colors work in vim+tmux
+let g:solarized_termcolors=256
+set term=screen-256color
+set t_Co=256
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
+set encoding=utf-8
 syntax enable
 set background=dark
-colorscheme solarized8_high
+colorscheme solarized8
 
 " indentation de 4 espaces, y compris pour 'tab'
 set tabstop=4
@@ -75,11 +86,20 @@ set shiftwidth=4
 set expandtab
 set softtabstop=4
 
+"YCM python with virtualenv support
+let g:ycm_python_interpreter_path = ''
+let g:ycm_python_sys_path = []
+let g:ycm_extra_conf_vim_data = [
+  \  'g:ycm_python_interpreter_path',
+  \  'g:ycm_python_sys_path'
+  \]
+let g:ycm_global_ycm_extra_conf = '~/ycm_global_extra_conf.py'
+
 " colors to indicate lines that are too long
 set colorcolumn=80
 
 " to reformat at right length
-set textwidth=80
+set textwidth=79
 
 " on rétabli le fonctionnement 'normal' de 'backspace'
 set backspace=indent,eol,start
@@ -91,6 +111,9 @@ set autoindent
 set number relativenumber
 set nu rnu
 
+" from real python - maybe make specific
+set fileformat=unix
+"
 " 5 lines at the begining and end of file when scrolling
 set so=5
 
@@ -107,6 +130,10 @@ set nowritebackup
 set noswapfile
 
 
+" Allow rainbow brackets
+let g:rainbow_active = 1
+
+
 "Vim Plugins
 
 "Installation of vim-plug if not present
@@ -120,12 +147,16 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'lervag/vimtex'
+Plug 'Valloric/YouCompleteMe'
+Plug 'vim-syntastic/syntastic'
+Plug 'luochen1990/rainbow'
+" Plug 'lervag/vimtex'
 call plug#end()
 
-let g:tex_flavor='latex'
-let g:vimtex_view_method='zathura'
-let g:vimtex_quickfix_mode=0
+" let g:tex_flavor='latex'
+" let g:vimtex_view_method='zathura'
+" let g:vimtex_quickfix_mode=0
+"
 " Uncomment to precompile math
 " set conceallevel=1
 " let g:tex_conceal='abdmg'
