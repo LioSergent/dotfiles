@@ -122,6 +122,7 @@ fi
 # Set default editor to vim
 export VISUAL=vim
 export EDITOR="$VISUAL"
+set -o vi
 
 # [[ -s $HOME/.pythonz/etc/bashrc ]] && source $HOME/.pythonz/etc/bashrc
 
@@ -141,6 +142,9 @@ alias ....='cd ../../../../'
 alias .....='cd ../../../../'
 alias .4='cd ../../../../'
 alias .5='cd ../../../../..'
+
+# custom aliases
+alias ltx='latexmk -pvc -pdf'
 
 # Using a git bare repo to store 'dotfiles' config
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME"

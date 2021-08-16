@@ -30,6 +30,7 @@ endif
 
 set number
 autocmd FileType help setlocal number
+set laststatus=2
 
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
@@ -113,9 +114,12 @@ set nu rnu
 
 " from real python - maybe make specific
 set fileformat=unix
-"
+
 " 5 lines at the begining and end of file when scrolling
 set so=5
+
+" For autocomplete preview
+set wildmenu
 
 " Default register = system clipboard
 set clipboard=unnamedplus
@@ -133,6 +137,15 @@ set noswapfile
 " Allow rainbow brackets
 let g:rainbow_active = 1
 
+" path to workspace
+set path=~ 
+
+" Shortcuts
+" Search and replace word under cursor using F4
+" nnoremap <F4> :%s/<c-r><c-w>/<c-r><c-w>/gc<c-f>$F/i don't how it works
+
+" select last paste in visual mode
+nnoremap <expr> gb '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 "Vim Plugins
 
@@ -150,8 +163,11 @@ Plug 'tpope/vim-commentary'
 Plug 'Valloric/YouCompleteMe'
 Plug 'vim-syntastic/syntastic'
 Plug 'luochen1990/rainbow'
-" Plug 'lervag/vimtex'
+Plug 'psf/black', { 'branch': 'stable' }
+Plug 'lervag/vimtex'
 call plug#end()
+
+let g:black_quiet=1
 
 " let g:tex_flavor='latex'
 " let g:vimtex_view_method='zathura'
