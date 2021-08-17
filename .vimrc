@@ -32,6 +32,9 @@ set number
 autocmd FileType help setlocal number
 set laststatus=2
 
+" Remove delay after escape press in terminal vim
+set timeoutlen=1000 ttimeoutlen=0
+
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
 "if has("autocmd")
@@ -44,6 +47,18 @@ if has("autocmd")
   filetype plugin indent on
   " Line highlight depending on mode
   autocmd InsertEnter,InsertLeave * set cul!
+endif
+
+" Cursor change in terminal mode
+if has("autocmd")
+  au VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' | redraw!
+  au InsertEnter,InsertChange *
+    \ if v:insertmode == 'i' | 
+    \   silent execute '!echo -ne "\e[6 q"' | redraw! |
+    \ elseif v:insertmode == 'r' |
+    \   silent execute '!echo -ne "\e[4 q"' | redraw! |
+    \ endif
+  au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
 endif
 
 " The following are commented out as they cause vim to behave a lot
@@ -65,16 +80,17 @@ endif
 set encoding=utf8
 
 
+" COLORS
 " I don't which one is actually correct
 " term=screen-256color is attempt to make colors work in vim+tmux
 let g:solarized_termcolors=256
-set term=screen-256color
+" set term=screen-256color-bce
 set t_Co=256
-if exists('+termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
-endif
+" if exists('+termguicolors')
+"   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"   set termguicolors
+" endif
 
 set encoding=utf-8
 syntax enable
