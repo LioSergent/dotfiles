@@ -1,4 +1,3 @@
-"
 "All system-wide defaults are set in $VIMRUNTIME/debian.vim and sourced by
 " the call to :runtime you can find below.  If you wish to change any of those
 " settings, you should do it in this file (/etc/vim/vimrc), since debian.vim
@@ -125,8 +124,8 @@ set backspace=indent,eol,start
 set autoindent
 
 "Hybrid numbers
-set number relativenumber
-set nu rnu
+" set number relativenumber
+" set nu rnu
 
 " from real python - maybe make specific
 set fileformat=unix
@@ -179,6 +178,7 @@ Plug 'tpope/vim-commentary'
 Plug 'Valloric/YouCompleteMe'
 Plug 'vim-syntastic/syntastic'
 Plug 'luochen1990/rainbow'
+" Plug 'frazrepo/vim-rainbow'
 Plug 'psf/black', { 'branch': 'stable' }
 Plug 'lervag/vimtex'
 call plug#end()
@@ -191,4 +191,9 @@ let g:black_quiet=1
 "
 " Uncomment to precompile math
 " set conceallevel=1
-" let g:tex_conceal='abdmg'
+
+" let g:rainbow_ctermfgs = ['lightred', 'green', 'blue', 'yellow', 'grey'] 
+let g:tex_conceal='abdmg'
+let g:rainbow_conf = {
+\	'ctermfgs': ['darkgreen', 'magenta', 'darkyellow', 'darkblue', 'yellow', 'red'],
+\}
