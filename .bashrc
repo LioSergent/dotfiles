@@ -147,6 +147,7 @@ alias .5='cd ../../../../..'
 
 # custom aliases
 alias ltx='latexmk -pvc -pdf'
+alias mtl='matlab -nodesktop -nosplash'
 
 # Using a git bare repo to store 'dotfiles' config
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME"

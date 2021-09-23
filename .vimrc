@@ -112,10 +112,15 @@ let g:ycm_extra_conf_vim_data = [
 let g:ycm_global_ycm_extra_conf = '~/ycm_global_extra_conf.py'
 
 " colors to indicate lines that are too long
-set colorcolumn=88
+set colorcolumn=100
 
 " to reformat at right length
-set textwidth=79
+set textwidth=99
+
+" Override for python files
+autocmd BufNew, BufRead *.py setlocal textwidth=79
+autocmd BufNew, BufRead *.py setlocal colorcolumn=80
+
 
 " on rétabli le fonctionnement 'normal' de 'backspace'
 set backspace=indent,eol,start
@@ -175,12 +180,13 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-eunuch'
 Plug 'Valloric/YouCompleteMe'
 Plug 'vim-syntastic/syntastic'
 Plug 'luochen1990/rainbow'
-" Plug 'frazrepo/vim-rainbow'
 Plug 'psf/black', { 'branch': 'stable' }
 Plug 'lervag/vimtex'
+Plug 'preservim/nerdtree'
 call plug#end()
 
 let g:black_quiet=1
@@ -191,6 +197,8 @@ let g:black_quiet=1
 "
 " Uncomment to precompile math
 " set conceallevel=1
+"
+let g:fern#default_hidden=1
 
 " let g:rainbow_ctermfgs = ['lightred', 'green', 'blue', 'yellow', 'grey'] 
 let g:tex_conceal='abdmg'
