@@ -112,15 +112,20 @@ let g:ycm_extra_conf_vim_data = [
 let g:ycm_global_ycm_extra_conf = '~/ycm_global_extra_conf.py'
 
 " colors to indicate lines that are too long
-set colorcolumn=100
+set colorcolumn=80
 
 " to reformat at right length
-set textwidth=99
+set textwidth=79
 
 " Override for python files
 autocmd BufNew, BufRead *.py setlocal textwidth=79
 autocmd BufNew, BufRead *.py setlocal colorcolumn=80
 
+autocmd Filetype markdown setlocal spell
+autocmd Filetype markdown setlocal spelllang=fr,en
+
+autocmd Filetype tex setlocal spell
+autocmd Filetype tex setlocal spelllang=fr,en
 
 " on rétabli le fonctionnement 'normal' de 'backspace'
 set backspace=indent,eol,start
@@ -163,9 +168,29 @@ set path=~
 " Shortcuts
 " Search and replace word under cursor using F4
 " nnoremap <F4> :%s/<c-r><c-w>/<c-r><c-w>/gc<c-f>$F/i don't how it works
+"
+let mapleader = ","
+let maplocalleader = ","
+noremap <leader>a :bprevious<cr>
+noremap <leader>e :bnext<cr>
+noremap <leader>t :NERDTree<cr>
+
+" Alt chars can be read by launching 'sed -n l' followed by pressing your 
+" Alt+letter. Need to tell vim what it is before using Alt remaps
+execute "set <A-z>=\ez"
+nnoremap <A-z> <C-w>
 
 " select last paste in visual mode
 nnoremap <expr> gb '`[' . strpart(getregtype(), 0, 1) . '`]'
+
+" Close a buffer without quiting window
+nnoremap <leader>c :bp\|bd #<CR>
+
+" Start server, useful for coupling vimtex with viewer
+if empty(v:servername) && exists('*remote_startserver')
+  call remote_startserver('VIM')
+endif
+
 
 "Vim Plugins
 
@@ -187,21 +212,27 @@ Plug 'luochen1990/rainbow'
 Plug 'psf/black', { 'branch': 'stable' }
 Plug 'lervag/vimtex'
 Plug 'preservim/nerdtree'
+Plug 'plasticboy/vim-markdown'
+Plug 'vim-airline/vim-airline'
 call plug#end()
 
 let g:black_quiet=1
 
-" let g:tex_flavor='latex'
-" let g:vimtex_view_method='zathura'
-" let g:vimtex_quickfix_mode=0
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_open_on_warning=0
+" Quickfix window supposed to open on error, but no focus
+let g:vimtex_quickfix_mode=2
+let g:vimtex_quickfix_autoclose_after_keystrokes=0
 "
 " Uncomment to precompile math
 " set conceallevel=1
 "
-let g:fern#default_hidden=1
-
 " let g:rainbow_ctermfgs = ['lightred', 'green', 'blue', 'yellow', 'grey'] 
-let g:tex_conceal='abdmg'
 let g:rainbow_conf = {
 \	'ctermfgs': ['darkgreen', 'magenta', 'darkyellow', 'darkblue', 'yellow', 'red'],
 \}
+
+let g:airline#extensions#tabline#enabled = 1
+let g:syntastic_matlab_mlint_exec = '/usr/local/MATLAB/R2020b/bin/glnxa64/mlint'
+
+let g:NERDTreeWinPos = "right"
