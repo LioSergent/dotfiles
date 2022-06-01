@@ -30,6 +30,8 @@ endif
 set number
 autocmd FileType help setlocal number
 set laststatus=2
+set autoread
+au CursorHold * checktime  
 
 " Remove delay after escape press in terminal vim
 set timeoutlen=1000 ttimeoutlen=0
@@ -174,6 +176,11 @@ let maplocalleader = ","
 noremap <leader>a :bprevious<cr>
 noremap <leader>e :bnext<cr>
 noremap <leader>t :NERDTree<cr>
+noremap <leader>b :TagbarToggle<cr>
+map <leader>i :let &background = ( &background == "dark"? "light" : "dark" )<CR>
+
+" Goes to last spelling mistake and choses first suggestion
+imap <F2> <Esc>mti<C-X>s<Esc>`tla
 
 " Alt chars can be read by launching 'sed -n l' followed by pressing your 
 " Alt+letter. Need to tell vim what it is before using Alt remaps
@@ -191,8 +198,24 @@ if empty(v:servername) && exists('*remote_startserver')
   call remote_startserver('VIM')
 endif
 
+"Cite as you write function
+function! ZoteroCite()
+  " pick a format based on the filetype (customize at will)
+  let format = &filetype =~ '.*tex' ? 'cite' : 'pandoc'
+  let api_call = 'http://127.0.0.1:23119/better-bibtex/cayw?format='.format.'&brackets=1'
+  let ref = system('curl -s '.shellescape(api_call))
+  return ref
+endfunction
+
+noremap <leader>z "=ZoteroCite()<CR>p
+inoremap <C-z> <C-r>=ZoteroCite()<CR>
+
+" ctags
+set autochdir
+set tags=tags;
 
 "Vim Plugins
+"
 
 "Installation of vim-plug if not present
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
@@ -207,13 +230,19 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'Valloric/YouCompleteMe'
-Plug 'vim-syntastic/syntastic'
+" Plug 'vim-syntastic/syntastic'
+Plug 'dense-analysis/ale'
 Plug 'luochen1990/rainbow'
 Plug 'psf/black', { 'branch': 'stable' }
 Plug 'lervag/vimtex'
 Plug 'preservim/nerdtree'
+Plug 'preservim/tagbar'
 Plug 'plasticboy/vim-markdown'
 Plug 'vim-airline/vim-airline'
+Plug 'SirVer/ultisnips'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'LioSergent/matlab-vim' 
+Plug 'djoshea/vim-matlab-fold'
 call plug#end()
 
 let g:black_quiet=1
@@ -223,16 +252,43 @@ let g:vimtex_quickfix_open_on_warning=0
 " Quickfix window supposed to open on error, but no focus
 let g:vimtex_quickfix_mode=2
 let g:vimtex_quickfix_autoclose_after_keystrokes=0
-"
-" Uncomment to precompile math
-" set conceallevel=1
+let g:vimtex_complete_close_braces=1
+let g:vimtex_toc_config = {
+      \ 'layers' : ['content', 'todo', 'include'],
+      \ 'split_width' : 50,
+      \ 'fold_enable': 1,
+      \ 'fold_level_start': 1,
+      \ 'show_help' : 1,
+      \ 'indent_levels': 1,
+      \}
+      " \ 'resize' : 1,
+      " \ 'todo_sorted' : 0,
+      " \ 'show_numbers' : 1,
+      " \ 'mode' : 2,
+
+" Precompile math
+set conceallevel=1
+let g:tex_conceal='abdmgs'
 "
 " let g:rainbow_ctermfgs = ['lightred', 'green', 'blue', 'yellow', 'grey'] 
 let g:rainbow_conf = {
 \	'ctermfgs': ['darkgreen', 'magenta', 'darkyellow', 'darkblue', 'yellow', 'red'],
 \}
 
+let g:UltiSnipsSnippetStorageDirectoryForUtilSnipsEdit = '~/.vim/UltiSnips'
+let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
+let g:UltiSnipsExpandTrigger="<C-j>"
+let g:UltiSnipsJumpForwardTrigger="<C-j>"
+let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+
 let g:airline#extensions#tabline#enabled = 1
 let g:syntastic_matlab_mlint_exec = '/usr/local/MATLAB/R2020b/bin/glnxa64/mlint'
+let g:ale_matlab_mlint_executable = '/usr/local/MATLAB/R2020b/bin/glnxa64/mlint'
 
 let g:NERDTreeWinPos = "right"
+let g:tagbar_width = max([25, winwidth(0) / 10])
+let g:tagbar_autoclose = 1
+let g:tagbar_autofocus = 1
+
+
+set statusline+=%{gutentags#statusline()}

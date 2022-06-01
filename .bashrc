@@ -159,3 +159,5 @@ eval "$(pyenv virtualenv-init -)"
 # Try to get solarized colors
 sh ~/scripts/solarized8.sh
 
+export PATH="~/scripts:$PATH"
+
