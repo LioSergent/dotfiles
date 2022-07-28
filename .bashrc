@@ -161,3 +161,4 @@ sh ~/scripts/solarized8.sh
 
 export PATH="~/scripts:$PATH"
 
+. "$HOME/.cargo/env"

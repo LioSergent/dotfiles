@@ -80,7 +80,6 @@ endif
 
 set encoding=utf8
 
-
 " COLORS
 " I don't which one is actually correct
 " term=screen-256color is attempt to make colors work in vim+tmux
@@ -113,18 +112,28 @@ let g:ycm_extra_conf_vim_data = [
   \]
 let g:ycm_global_ycm_extra_conf = '~/ycm_global_extra_conf.py'
 
-" colors to indicate lines that are too long
-set colorcolumn=80
+set colorcolumn=100
 
 " to reformat at right length
-set textwidth=79
+" set textwidth=99
 
-" Override for python files
-autocmd BufNew, BufRead *.py setlocal textwidth=79
-autocmd BufNew, BufRead *.py setlocal colorcolumn=80
+" colors to indicate lines that are too long
+autocmd Filetype python setlocal textwidth=79
+autocmd Filetype python setlocal colorcolumn=80
+
+autocmd Filetype matlab setlocal textwidth=99
+autocmd Filetype matlab setlocal colorcolumn=100
+
+autocmd Filetype rust setlocal textwidth=99
+autocmd Filetype rust setlocal colorcolumn=100
+
+
+autocmd Filetype tex setlocal textwidth=99
+autocmd Filetype tex setlocal colorcolumn=100
 
 autocmd Filetype markdown setlocal spell
 autocmd Filetype markdown setlocal spelllang=fr,en
+autocmd Filetype markdown setlocal conceallevel=1
 
 autocmd Filetype tex setlocal spell
 autocmd Filetype tex setlocal spelllang=fr,en
@@ -147,6 +156,7 @@ set so=5
 
 " For autocomplete preview
 set wildmenu
+
 
 " Default register = system clipboard
 set clipboard=unnamedplus
@@ -201,7 +211,7 @@ endif
 "Cite as you write function
 function! ZoteroCite()
   " pick a format based on the filetype (customize at will)
-  let format = &filetype =~ '.*tex' ? 'cite' : 'pandoc'
+  let format = &filetype =~ '.*tex' ? 'citep' : 'pandoc'
   let api_call = 'http://127.0.0.1:23119/better-bibtex/cayw?format='.format.'&brackets=1'
   let ref = system('curl -s '.shellescape(api_call))
   return ref
@@ -213,6 +223,8 @@ inoremap <C-z> <C-r>=ZoteroCite()<CR>
 " ctags
 set autochdir
 set tags=tags;
+" Try to add libraries for matlab
+autocmd Filetype matlab setlocal tags+=/home/liosergent/pkg/matlab/**/tags
 
 "Vim Plugins
 "
@@ -230,14 +242,14 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'Valloric/YouCompleteMe'
-" Plug 'vim-syntastic/syntastic'
 Plug 'dense-analysis/ale'
 Plug 'luochen1990/rainbow'
 Plug 'psf/black', { 'branch': 'stable' }
 Plug 'lervag/vimtex'
 Plug 'preservim/nerdtree'
 Plug 'preservim/tagbar'
-Plug 'plasticboy/vim-markdown'
+" Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'vim-airline/vim-airline'
 Plug 'SirVer/ultisnips'
 Plug 'ludovicchabant/vim-gutentags'
@@ -284,11 +296,18 @@ let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 let g:airline#extensions#tabline#enabled = 1
 let g:syntastic_matlab_mlint_exec = '/usr/local/MATLAB/R2020b/bin/glnxa64/mlint'
 let g:ale_matlab_mlint_executable = '/usr/local/MATLAB/R2020b/bin/glnxa64/mlint'
+let g:ale_echo_msg_format = '%linter%::%s'
 
 let g:NERDTreeWinPos = "right"
+let NERDTreeQuitOnOpen=1
+
 let g:tagbar_width = max([25, winwidth(0) / 10])
 let g:tagbar_autoclose = 1
 let g:tagbar_autofocus = 1
+
+" Markdown
+let g:mkdp_auto_close = 0
+let g:mkdp_browser = 'firefox'
 
 
 set statusline+=%{gutentags#statusline()}

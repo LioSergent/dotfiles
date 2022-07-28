@@ -51,7 +51,7 @@ set recolor-darkcolor           "#ebdbb2" # fg
 set recolor                     "true"
 # set recolor-keephue             true      # keep original color
 
-set highlight-transparency 0.05   
+set highlight-transparency 0.1   
 
 
 # maps
