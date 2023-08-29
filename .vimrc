@@ -21,9 +21,9 @@ runtime! debian.vim
 " options, so any other options should be set AFTER setting 'compatible'.
 "set compatible
 
-" Vim5 and later versions support syntax highlighting. Uncommenting the next
-" line enables syntax highlighting by default.
-if has("syntax")
+    " Vim5 and later versions support syntax highlighting. Uncommenting the next
+    " line enables syntax highlighting by default.
+    if has("syntax")
   syntax on
 endif
 
@@ -72,6 +72,7 @@ set incsearch		" Incremental search
 set autowrite		" Automatically save before commands like :next and :make
 set hidden		" Hide buffers when they are abandoned
 set mouse=a		" Enable mouse usage (all modes)
+set completeopt-=preview  " stops the opening of preview windows when completing
 
 " Source a global configuration file if available
 if filereadable("/etc/vim/vimrc.local")
@@ -118,8 +119,8 @@ set colorcolumn=100
 " set textwidth=99
 
 " colors to indicate lines that are too long
-autocmd Filetype python setlocal textwidth=79
-autocmd Filetype python setlocal colorcolumn=80
+autocmd Filetype python setlocal textwidth=88
+autocmd Filetype python setlocal colorcolumn=89
 
 autocmd Filetype matlab setlocal textwidth=99
 autocmd Filetype matlab setlocal colorcolumn=100
@@ -164,6 +165,12 @@ set clipboard=unnamedplus
 " Keep visual mode after indent
 vnoremap > >gv
 vnoremap < <gv
+
+"Refactor shortcut
+noremap <leader>R :%s/\\<<C-r><C-w>\\>//g<left><left>
+
+" Use H to go to begining of line, so consistent with obsidian
+nmap H ^
 
 " Disable saves and swaps
 set nobackup
@@ -212,7 +219,7 @@ endif
 function! ZoteroCite()
   " pick a format based on the filetype (customize at will)
   let format = &filetype =~ '.*tex' ? 'citep' : 'pandoc'
-  let api_call = 'http://127.0.0.1:23119/better-bibtex/cayw?format='.format.'&brackets=1'
+  let api_call = 'http://127.0.0.1:23119/better-bibtex/cayw?format='.format.'&brackets=1&command=parencite'
   let ref = system('curl -s '.shellescape(api_call))
   return ref
 endfunction
@@ -226,6 +233,8 @@ set tags=tags;
 " Try to add libraries for matlab
 autocmd Filetype matlab setlocal tags+=/home/liosergent/pkg/matlab/**/tags
 
+" reload vimrc
+nnoremap <leader>r :so $MYVIMRC<cr>
 "Vim Plugins
 "
 
@@ -241,10 +250,10 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
-Plug 'Valloric/YouCompleteMe'
+Plug 'ycm-core/YouCompleteMe'
 Plug 'dense-analysis/ale'
 Plug 'luochen1990/rainbow'
-Plug 'psf/black', { 'branch': 'stable' }
+" Plug 'psf/black', { 'branch': 'stable' }
 Plug 'lervag/vimtex'
 Plug 'preservim/nerdtree'
 Plug 'preservim/tagbar'
@@ -255,9 +264,21 @@ Plug 'SirVer/ultisnips'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'LioSergent/matlab-vim' 
 Plug 'djoshea/vim-matlab-fold'
+Plug 'dpelle/vim-LanguageTool'
+Plug 'ervandew/supertab'
+Plug 'APZelos/blamer.nvim'
 call plug#end()
 
-let g:black_quiet=1
+" let g:black_quiet=1
+let g:vimtex_compiler_latexmk = {
+    \ 'options' : [
+    \    '-shell-escape',
+    \    '-verbose',
+    \    '-file-line-error',
+    \    '-synctex=1',
+    \    '-interaction=nonstopmode',
+    \ ],
+    \}
 
 let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_open_on_warning=0
@@ -277,7 +298,20 @@ let g:vimtex_toc_config = {
       " \ 'todo_sorted' : 0,
       " \ 'show_numbers' : 1,
       " \ 'mode' : 2,
-
+      "
+let g:vimtex_grammar_vlty = {}
+let g:vimtex_grammar_vlty.lt_directory = "~/pkg/LanguageTool-5.9"
+" let g:vimtex_grammar_vlty.server = 'my' $ azelkjlazje $
+let g:vimtex_grammar_vlty.show_suggestions = 1
+let g:vimtex_grammar_vlty.shell_options =
+        \   ' --multi-language'
+        \ . ' --packages "*"'
+        " \ . ' --define ~/vlty/defs.tex' 
+        " \ . ' --replace ~/vlty/repls.txt'
+        \ . ' --equation-punctuation display'
+        \ . ' --languagemodel /home/liosergent/pkg/LanguageTool_n-grams'
+        \ . ' --single-letters "i.\,A.\|z.\,B.\|\|"'
+map <F9> :w <bar> compiler vlty <bar> make <bar> :cw <cr><esc>
 " Precompile math
 set conceallevel=1
 let g:tex_conceal='abdmgs'
@@ -289,15 +323,29 @@ let g:rainbow_conf = {
 
 let g:UltiSnipsSnippetStorageDirectoryForUtilSnipsEdit = '~/.vim/UltiSnips'
 let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
-let g:UltiSnipsExpandTrigger="<C-j>"
-let g:UltiSnipsJumpForwardTrigger="<C-j>"
-let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<tab>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-h>"
+   " make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:ale_fixers = {
+    \    'javascript': ['eslint', 'prettier'],
+    \    'python': ['black', 'isort']
+    \}
+let g:ale_fix_on_save = 1
+let g:ale_python_isort_options = '--settings-path .'
 
 let g:airline#extensions#tabline#enabled = 1
 let g:syntastic_matlab_mlint_exec = '/usr/local/MATLAB/R2020b/bin/glnxa64/mlint'
 let g:ale_matlab_mlint_executable = '/usr/local/MATLAB/R2020b/bin/glnxa64/mlint'
 let g:ale_echo_msg_format = '%linter%::%s'
-
 let g:NERDTreeWinPos = "right"
 let NERDTreeQuitOnOpen=1
 
@@ -309,5 +357,9 @@ let g:tagbar_autofocus = 1
 let g:mkdp_auto_close = 0
 let g:mkdp_browser = 'firefox'
 
+" LanguageTool
+let g:languagetool_cmd='$HOME/scripts/yalafi-grammarous.sh'
+let g:languagetool_disable_rules = 'WHITESPACE_RULE'
+" let g:languagetool_jar='$HOME/pkg/LanguageTool-5.9/languagetool-commandline.jar'
 
 set statusline+=%{gutentags#statusline()}

@@ -26,3 +26,6 @@ nmap zM :foldall
 
 exmap foldtoggle obcommand editor:toggle-fold
 nmap za :foldtoggle
+
+" 5 lines at the begining and end of file when scrolling
+set so=5

@@ -4,4 +4,5 @@ cd ~/screens
 filename=`ls -t | head -n1`
 extension="${filename##*.}"
 name="${filename%.*}"
-mv "$filename" "$wd/$1.$extension"
+cp "$filename" "$wd/$1.$extension"
+

@@ -1,0 +1,15 @@
+cat << EOF | sudo tee /etc/systemd/system/obsidian_shutdown_autogit.service
+[Unit]
+Description=git pushes at shutdown
+Before=shutdown.target reboot.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/true
+ExecStop=/usr/local/sbin/obsidian_autogit_shutdown.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+EOF
+sudo systemctl enable obsidian_shutdown_autogit.service

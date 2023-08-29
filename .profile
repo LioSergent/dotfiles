@@ -33,6 +33,8 @@ fi
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
+export TEXINPUTS=:$HOME/pkg/latex//
 eval "$(pyenv init --path)"
 
 . "$HOME/.cargo/env"
+

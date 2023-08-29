@@ -12,5 +12,5 @@ fi
 
 git pull
 git add .
-git commit -q -m "PC startup Sync:  $(date +"%Y-%m-%d %H:%M:%S")"
+git commit -q -m "PC shutdown service Sync:  $(date +"%Y-%m-%d %H:%M:%S")"
 git push -q
