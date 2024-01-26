@@ -35,3 +35,18 @@ endsnippet
 snippet mk "math" i
 $$1$$0
 endsnippet
+
+snippet try "try/except" 
+try:
+	${1:${VISUAL:pass}}
+except ${2:Exception} as ${3:e}:
+	${4:raise $3}
+endsnippet
+
+snippet db "try/except: debug" 
+try:
+	${1:${VISUAL:pass}}
+except ${2:Exception} as ${3:e}:
+	import ipdb
+	ipdb.set_trace()
+endsnippet

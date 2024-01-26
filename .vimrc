@@ -1,4 +1,4 @@
-"All system-wide defaults are set in $VIMRUNTIME/debian.vim and sourced by
+"All system-wide defaults are set in $VIMRUNTIME/debian.vim and sourced byG
 " the call to :runtime you can find below.  If you wish to change any of those
 " settings, you should do it in this file (/etc/vim/vimrc), since debian.vim
 " will be overwritten everytime an upgrade of the vim packages is performed.
@@ -80,6 +80,10 @@ if filereadable("/etc/vim/vimrc.local")
 endif
 
 set encoding=utf8
+
+" For django
+filetype on
+filetype indent on
 
 " COLORS
 " I don't which one is actually correct
@@ -237,6 +241,7 @@ autocmd Filetype matlab setlocal tags+=/home/liosergent/pkg/matlab/**/tags
 nnoremap <leader>r :so $MYVIMRC<cr>
 "Vim Plugins
 "
+"
 
 "Installation of vim-plug if not present
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
@@ -267,6 +272,7 @@ Plug 'djoshea/vim-matlab-fold'
 Plug 'dpelle/vim-LanguageTool'
 Plug 'ervandew/supertab'
 Plug 'APZelos/blamer.nvim'
+Plug 'untitled-ai/jupyter_ascending.vim'
 call plug#end()
 
 " let g:black_quiet=1
@@ -319,6 +325,7 @@ let g:tex_conceal='abdmgs'
 " let g:rainbow_ctermfgs = ['lightred', 'green', 'blue', 'yellow', 'grey'] 
 let g:rainbow_conf = {
 \	'ctermfgs': ['darkgreen', 'magenta', 'darkyellow', 'darkblue', 'yellow', 'red'],
+\   'separately': {'html': 0, 'css': 0, 'nerdtree': 0}
 \}
 
 let g:UltiSnipsSnippetStorageDirectoryForUtilSnipsEdit = '~/.vim/UltiSnips'
@@ -341,6 +348,9 @@ let g:ale_fixers = {
     \}
 let g:ale_fix_on_save = 1
 let g:ale_python_isort_options = '--settings-path .'
+let g:ale_linters_ignore = {
+    \ 'python': ['pylint'],
+\}
 
 let g:airline#extensions#tabline#enabled = 1
 let g:syntastic_matlab_mlint_exec = '/usr/local/MATLAB/R2020b/bin/glnxa64/mlint'
@@ -361,5 +371,10 @@ let g:mkdp_browser = 'firefox'
 let g:languagetool_cmd='$HOME/scripts/yalafi-grammarous.sh'
 let g:languagetool_disable_rules = 'WHITESPACE_RULE'
 " let g:languagetool_jar='$HOME/pkg/LanguageTool-5.9/languagetool-commandline.jar'
+"
+
+" Jupyter ascending
+nmap <leader>x <Plug>JupyterExecute
+nmap <leader>X <Plug>JupyterExecuteAll
 
 set statusline+=%{gutentags#statusline()}

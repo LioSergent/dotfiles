@@ -160,6 +160,7 @@ eval "$(pyenv virtualenv-init -)"
 sh ~/scripts/solarized8.sh
 
 export PATH="~/scripts:$PATH"
+export PATH="~/.idaes/bin:$PATH"
 
 . "$HOME/.cargo/env"
 
@@ -170,3 +171,33 @@ export NVM_DIR="$HOME/.nvm"
 
 # Load Angular CLI autocompletion.
 source <(ng completion script)
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/liosergent/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/liosergent/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/liosergent/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/liosergent/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+
+# <<<< Added by Spyder <<<<
+alias spyder=/home/liosergent/.local/Spyder-5.5.0/envs/spyder-5.5.0/bin/spyder
+alias uninstall-spyder=/home/liosergent/.local/Spyder-5.5.0/uninstall-spyder.sh
+# >>>> Added by Spyder >>>>
+#
+
+# Django shortcut
+django(){
+ python manage.py "$@"
+}
+
+# bob for switching neovim versions 
+export PATH="/home/liosergent/.local/share/bob/nvim-bin:$PATH"

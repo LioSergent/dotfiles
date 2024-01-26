@@ -2,6 +2,7 @@
 nmap j gj
 nmap k gk
 nmap H ^
+inoremap jk <ESC>
 
 " Yank to system clipboard
 set clipboard=unnamed
@@ -29,3 +30,4 @@ nmap za :foldtoggle
 
 " 5 lines at the begining and end of file when scrolling
 set so=5
+map U <Nop>
