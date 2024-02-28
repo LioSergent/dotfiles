@@ -35,7 +35,7 @@ nvim_tree.setup {
       },
     },
   },
-    view = { adaptive_size = true },
+    view = { adaptive_size = true, side="right" },
   diagnostics = {
     enable = true,
     show_on_dirs = true,

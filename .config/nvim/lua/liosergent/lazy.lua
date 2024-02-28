@@ -23,7 +23,8 @@ require("lazy").setup({
         opts = {},
     },
     { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-    { 'mhartington/oceanic-next' },
+    { "roflolilolmao/oceanic-next.nvim"},
+    { "marko-cerovac/material.nvim"},
     { 'maxmx03/solarized.nvim' },
     { "nvim-treesitter/nvim-treesitter",  build = ":TSUpdate" },
     --- Uncomment the two plugins below if you want to manage the language servers from neovim
@@ -37,33 +38,32 @@ require("lazy").setup({
     { 'tpope/vim-commentary' },
     { 'williamboman/mason.nvim' },
     { 'williamboman/mason-lspconfig.nvim' },
-    -- {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
     { 'neovim/nvim-lspconfig' },
     { 'tpope/vim-surround' },
     { 'HiPhish/rainbow-delimiters.nvim' },
-    {
-        "L3MON4D3/LuaSnip",
-        -- follow latest release.
-        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-        -- install jsregexp (optional!).
-        build = "make install_jsregexp"
-    },
-    { 'SirVer/ultisnips'},
-    { 'quangnguyen30192/cmp-nvim-ultisnips'},
-    -- { 'saadparwaiz1/cmp_luasnip' },
-    -- { 'rafamadriz/friendly-snippets' },
-    { "lukas-reineke/indent-blankline.nvim", main = "ibl",                                opts = {} },
-    { "akinsho/bufferline.nvim",             dependencies = "nvim-tree/nvim-web-devicons" },
-    {
-        'freddiehaddad/feline.nvim',
-        opts = {}
-    },
-    {
-        "nvim-tree/nvim-tree.lua",
-        version = "*",
-        lazy = false,
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-    },
-    {"untitled-ai/jupyter_ascending.vim"}
-
-})
+    -- {
+        --     "L3MON4D3/LuaSnip",
+        --     -- follow latest release.
+        --     version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        --     -- install jsregexp (optional!).
+        --     build = "make install_jsregexp"
+        -- },
+        -- { 'saadparwaiz1/cmp_luasnip' },
+        -- { 'rafamadriz/friendly-snippets' },
+        { 'SirVer/ultisnips'},
+        { 'quangnguyen30192/cmp-nvim-ultisnips'},
+        { "lukas-reineke/indent-blankline.nvim", main = "ibl",                                opts = {} },
+        { "akinsho/bufferline.nvim",             dependencies = "nvim-tree/nvim-web-devicons" },
+        {
+            'freddiehaddad/feline.nvim',
+            opts = {}
+        },
+        {
+            "nvim-tree/nvim-tree.lua",
+            version = "*",
+            lazy = false,
+            dependencies = { "nvim-tree/nvim-web-devicons" },
+        },
+        {"untitled-ai/jupyter_ascending.vim"},
+        {'lervag/vimtex'}
+    })

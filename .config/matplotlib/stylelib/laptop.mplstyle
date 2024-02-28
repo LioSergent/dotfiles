@@ -1,0 +1,41 @@
+# Matplotlib style for when using on laptop (no decrease of resolution)
+# Set default figure size
+figure.figsize : 8, 6
+figure.dpi: 400
+
+# Set x axis
+xtick.major.size : 4
+xtick.major.width : 0.5
+xtick.minor.size : 2
+xtick.minor.width : 0.5
+
+# Set y axis
+ytick.major.size : 4
+ytick.major.width : 0.5
+ytick.minor.size : 2
+ytick.minor.width : 0.5
+
+# Fontsizes
+xtick.labelsize : 12
+ytick.labelsize : 12
+axes.titlesize : 12
+axes.labelsize : 12
+
+# Set line widths
+axes.linewidth : 0.6
+
+# Grid
+grid.linewidth : 0.3 
+grid.linestyle : --
+grid.color : k
+grid.alpha : 0.5
+axes.grid: True
+
+lines.linewidth : 0.8
+
+# Legend
+legend.frameon: True
+legend.fontsize : 9 
+legend.title_fontsize : 10 
+legend.framealpha: 0.7
+

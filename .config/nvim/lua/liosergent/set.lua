@@ -28,8 +28,11 @@ vim.api.nvim_create_autocmd(
         pattern = "*.py",
         group = "AutoFormat",
         callback = function()
-            vim.cmd("silent !black --quiet %")
-            vim.cmd("edit")
+            -- vim.lsp.buf.format {async = true}
+            vim.cmd("silent !ruff format --quiet %")
+            vim.cmd("silent !ruff ckeck --select I --fix --quiet %")
+            -- vim.cmd("silent !black --quiet %")
+            -- vim.cmd("edit")
         end,
     }
 )

@@ -1,8 +1,6 @@
 map <leader>i :let &background = ( &background == "dark"? "light" : "dark" )<CR>
 
-" let g:UltiSnipsSnippetStorageDirectoryForUtilSnipsEdit = '~/.vim/UltiSnips'
-" let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
-let g:UltiSnipsSnippetDirectories = "/home/liosergent/.vim/"
+let g:UltiSnipsSnippetDirectories = [$HOME.'/.config/nvim/my_ulti_snippets']
 
 let g:python3_host_prog = "/home/liosergent/.pyenv/versions/nvim-env/bin/python"
 
@@ -13,3 +11,5 @@ autocmd FileType netrw setlocal number
 
 let g:UltiSnipsSnippetStorageDirectoryForUtilSnipsEdit = '~/.vim/UltiSnips'
 let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
+
+filetype plugin on

@@ -2,12 +2,14 @@ local servers = {
 	"lua_ls",
 	"cssls",
 	"html",
-    -- "ruff-lsp",
+    -- "ruff_lsp",
 	-- "tsserver",
 	"pyright",
 	-- "bashls",
 	"jsonls",
 	"yamlls",
+    "matlab_ls",
+    "texlab",
 }
 
 local settings = {
