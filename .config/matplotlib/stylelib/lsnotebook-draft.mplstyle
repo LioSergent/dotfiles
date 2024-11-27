@@ -1,7 +1,7 @@
 # Matplotlib style for Jupyter notebooks - with low dpi
 
 # Set default figure size
-figure.figsize : 8, 6
+figure.figsize : 8, 4
 figure.dpi: 100
 
 # Set x axis
@@ -26,11 +26,11 @@ axes.labelsize : 16
 axes.linewidth : 1
 
 # Grid
-grid.linewidth : 0.4 
-grid.linestyle : --
+grid.linewidth : 0.3 
+grid.linestyle : :
 grid.color : k
-grid.alpha : 0.5
-axes.grid: True
+grid.alpha : 0.15
+axes.grid: False
 
 lines.linewidth : 1.
 

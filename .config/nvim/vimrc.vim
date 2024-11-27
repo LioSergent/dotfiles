@@ -13,3 +13,6 @@ let g:UltiSnipsSnippetStorageDirectoryForUtilSnipsEdit = '~/.vim/UltiSnips'
 let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
 
 filetype plugin on
+
+autocmd Filetype tex setlocal textwidth=99
+autocmd Filetype tex setlocal colorcolumn=100

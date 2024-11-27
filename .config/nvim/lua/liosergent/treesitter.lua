@@ -23,6 +23,7 @@ require'nvim-treesitter.configs'.setup {
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
 
-    disable = {"latex"}
+    disable = {"latex"}  -- makes vimtex decide on the syntax highlighting
+    -- disable = {} -- uncomment to make treesitter take over
   },
 }

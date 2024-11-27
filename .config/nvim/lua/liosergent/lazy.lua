@@ -23,7 +23,8 @@ require("lazy").setup({
         opts = {},
     },
     { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-    { "roflolilolmao/oceanic-next.nvim"},
+    -- { "roflolilolmao/oceanic-next.nvim"},
+    { "mhartington/oceanic-next"},
     { "marko-cerovac/material.nvim"},
     { 'maxmx03/solarized.nvim' },
     { "nvim-treesitter/nvim-treesitter",  build = ":TSUpdate" },
@@ -64,6 +65,10 @@ require("lazy").setup({
             lazy = false,
             dependencies = { "nvim-tree/nvim-web-devicons" },
         },
-        {"untitled-ai/jupyter_ascending.vim"},
-        {'lervag/vimtex'}
-    })
+    { "untitled-ai/jupyter_ascending.vim" },
+    { 'lervag/vimtex' },
+    {
+        "GCBallesteros/jupytext.nvim",
+        config = true,
+    }
+})

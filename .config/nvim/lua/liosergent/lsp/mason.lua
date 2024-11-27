@@ -10,6 +10,7 @@ local servers = {
 	"yamlls",
     "matlab_ls",
     "texlab",
+    "ltex",
 }
 
 local settings = {
