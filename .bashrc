@@ -175,4 +175,9 @@ django(){
 }
 
 # bob for switching neovim versions 
-export PATH="/home/liosergent/.local/share/bob/nvim-bin:$PATH"
+export PATH="/home/lios/.local/share/bob/nvim-bin:$PATH"
+
+# texlive installation
+export MANPATH="/usr/local/texlive/2024/texmf-dist/doc/man:$MANPATH"
+export INFOPATH="/usr/local/texlive/2024/texmf-dist/doc/info:$INFOPATH"
+export PATH="/usr/local/texlive/2024/bin/x86_64-linux:$PATH"
