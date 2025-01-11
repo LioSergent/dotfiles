@@ -30,7 +30,7 @@ let g:vimtex_toc_config = {
       " \ 'mode' : 2,
       "
 let g:vimtex_grammar_vlty = {}
-let g:vimtex_grammar_vlty.lt_directory = "~/pkg/LanguageTool-6.3"
+let g:vimtex_grammar_vlty.lt_directory = "~/pkg/LanguageTool-stable/"
 " let g:vimtex_grammar_vlty.server = 'my' $ azelkjlazje $
 let g:vimtex_grammar_vlty.show_suggestions = 1
 let g:vimtex_grammar_vlty.shell_options =
@@ -39,7 +39,7 @@ let g:vimtex_grammar_vlty.shell_options =
         " \ . ' --define ~/vlty/defs.tex' 
         " \ . ' --replace ~/vlty/repls.txt'
         \ . ' --equation-punctuation display'
-        \ . ' --languagemodel /home/liosergent/pkg/LanguageTool_n-grams'
+        \ . ' --languagemodel /home/lios/pkg/LanguageTool-ngrams/'
         \ . ' --single-letters "i.\,A.\|z.\,B.\|\|"'
 map <F9> :w <bar> compiler vlty <bar> make <bar> :cw <cr><esc>
 " Precompile math

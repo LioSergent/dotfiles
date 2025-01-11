@@ -181,3 +181,6 @@ export PATH="/home/lios/.local/share/bob/nvim-bin:$PATH"
 export MANPATH="/usr/local/texlive/2024/texmf-dist/doc/man:$MANPATH"
 export INFOPATH="/usr/local/texlive/2024/texmf-dist/doc/info:$INFOPATH"
 export PATH="/usr/local/texlive/2024/bin/x86_64-linux:$PATH"
+
+
+. "$HOME/.local/bin/env"
